@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_array($sqlquery)){
     </form> -->
     <?php if($row['role'] == 1){ ?>
     <form class="d-flex col-lg-2" action="searchedit.php" method="GET">
-        <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search Items" aria-label="Search" autocomplete="off">
+        <input class="form-control mx-2" type="search" id="search" name="search" placeholder="Search Items" aria-label="Search" autocomplete="off">
         <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
     </form>
     <form id="idform">
@@ -41,9 +41,9 @@ while ($row = mysqli_fetch_array($sqlquery)){
             foreach ($res as $items)
             { 
               ?>
-              <div class="row m-4">
+              <div class="row my-3 mx-2 align-items-center">
                 <div class="col-4">
-                    <label class="form-label"><?php echo $items['name'] ?></label></br>
+                    <label class="form-label" style="text-transform: capitalize;"><?php echo $items['name'] ?></label></br>
                     <div class="d-flex">
                     <p>Qty -</p>
                     <p id="initial_qty<?php echo $items['id']  ?>"class="all_initial_qty"><?php echo $items['qty'] ?></p>
@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_array($sqlquery)){
 
                 <div class="col-5 d-flex">
                     <!-- <button type="button" class="btn btn-dark" onclick="inc('id<?php echo $items['id']?>')">+</button> -->
-                    <input type="number" class="form-control w-100 alldata text-center" id="id<?php echo $items['id']  ?>" autocomplete="off">
+                    <input type="number" class="form-control w-75 h-50 alldata" id="id<?php echo $items['id']  ?>" autocomplete="off">
                     <!-- <button type="button" class="btn btn-dark" onclick="dec('id<?php echo $items['id']?>')">-</button> -->
                 </div>
 
@@ -72,7 +72,7 @@ while ($row = mysqli_fetch_array($sqlquery)){
               array_push($ar['id'],$item['id']);
             }
             $encoded_data = json_encode($ar['id']);
-            echo '<button type="button" onclick=\'getAllData('.$encoded_data.')\' class="btn btn-primary">Update All</button>';
+            echo '<button type="button" onclick=\'getAllData('.$encoded_data.')\' class="btn btn-primary ms-4" style="">Update All</button>';
         ?>
 
     </form>

@@ -48,80 +48,80 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
     <?php include 'header.php' ?>
     <div class="container">
         <h4>My Shopping Cart</h4>
-        
+
         <?php
         if (!empty($cart_details)) {
         ?>
-        <a href="deleteAllCart.php?cust_id=<?php echo $customer_id; ?>"><button type="button" class="btn-sm btn-danger">Empty Cart</button></a>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Remove Cart</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($cart_details as $items) {
-                        $totalprice += ((int)$items['product_price'] * (int)$items['qty']);
-                        // if (is_numeric($items['product_price']) && is_numeric($items['qty'])) {
-                        //     $totalprice += ($items['product_price'] * $items['qty']);
-                        //   } else {
-
-                        //   }
-                    ?>
+            <a href="deleteAllCart.php?cust_id=<?php echo $customer_id; ?>"><button type="button" class="btn-sm btn-danger">Empty Cart</button></a>
+            <div class="table-responsive my-3">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <th><?php echo $items['product_name'] ?></th>
-                            <td>₹ <?php echo $items['product_price'] ?></td>
-                            <td><?php echo $items['qty'] ?></td>
-                            <td>₹ <?php echo $items['product_price'] * $items['qty'] ?></td>
-                            <td class="text-center"><a class="text-danger" href="deleteCart.php?id=<?php echo$items['id'] ?>&customer_id=<?php echo $customer_id; ?>"><i class="fas fa-times" style="border: 1px solid red; margin-left:10px; padding:4px; border-radius:50%"></i></a></td>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Remove Cart</th>
                         </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($cart_details as $items) {
+                            $totalprice += ((int)$items['product_price'] * (int)$items['qty']);
+                            // if (is_numeric($items['product_price']) && is_numeric($items['qty'])) {
+                            //     $totalprice += ($items['product_price'] * $items['qty']);
+                            //   } else {
+
+                            //   }
+                        ?>
+                            <tr>
+                                <th><?php echo $items['product_name'] ?></th>
+                                <td>₹ <?php echo $items['product_price'] ?></td>
+                                <td><?php echo $items['qty'] ?></td>
+                                <td>₹ <?php echo $items['product_price'] * $items['qty'] ?></td>
+                                <td class="text-center"><a class="text-danger" href="deleteCart.php?id=<?php echo $items['id'] ?>&customer_id=<?php echo $customer_id; ?>"><i class="fas fa-times" style="border: 1px solid red; margin-left:10px; padding:4px; border-radius:50%"></i></a></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
             <input type="text" class="w-25 float-end" style="border: none; text-align:center;" id="grand_total" value="<?php echo $totalprice ?>" readonly></br>
-            <div class="container">
-                <div class="row">
+      
+                <div class="row w-100 my-3">
                     <div class="col-6">
                         <h5>Paid</h5>
-                        <input type="number" id="paid_amt" onkeyup="calc_pending_amt()" placeholder="paid amount" value="<?php echo $totalprice ?>">
+                        <input type="number" style="max-width:100%;" id="paid_amt" onkeyup="calc_pending_amt()" placeholder="paid amount" value="<?php echo $totalprice ?>">
                     </div>
                     <div class="col-6">
                         <h5>Pending</h5>
-                        <input type="number" id="pending_amt" onkeyup="calc_paid_amt()" placeholder="pending amount" value="0">
+                        <input type="number" style="max-width:100%;" id="pending_amt" onkeyup="calc_paid_amt()" placeholder="pending amount" value="0">
                     </div>
+                </div>
+
+            <div class="mt-2 paymentOptions">
+                <h5>Payment Method</h5>
+                <div class="row">
+                    <?php
+                    foreach ($mode_details as $payment) {
+                    ?>
+                        <div class="col pe-0">
+                            <div class="form-check">
+                                <input class="form-check-input radio" value="<?php echo $payment['payment_method'] ?>" type="radio" name="radio" checked id="<?php echo $payment['id'] ?>">
+                                <label class="form-check-label" for="flexRadioDefault1" style="font-size:12px;">
+                                    <?php echo $payment['payment_method'] ?>
+                                </label>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
 
-            <div class="container mt-2 paymentOptions">
-                <h5>Payment Method</h5>
-                <div class="row">
-                        <?php 
-                            foreach($mode_details as $payment)
-                            {
-                                ?>
-                                <div class="col-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input radio" value="<?php echo $payment['payment_method'] ?>" type="radio" name="radio" checked id="<?php echo $payment['id'] ?>">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            <?php echo $payment['payment_method'] ?>
-                                        </label>
-                                    </div>
-                                </div>
-                                <?php
-                            }
-                        ?>
-                </div>
-            </div>
-                
-            <div class="container mt-2">
-                <button type="button" class="btn btn-primary" onclick="getData('<?php echo $customer['name']?>','<?php echo $customer['mobile']?>',<?php echo $customer_id ?>)">Place Order</button>
+            <div class=" mt-2">
+                <button type="button" class="btn btn-primary" onclick="getData('<?php echo $customer['name'] ?>','<?php echo $customer['mobile'] ?>',<?php echo $customer_id ?>)">Place Order</button>
             </div>
             <div id="message" class="alert-success" role="alert"></div>
         <?php
@@ -168,15 +168,15 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
         var paid_amt = document.getElementById("paid_amt").value = grand_total - pending_amt;
     }
 
-    function getData(customer_name,mobile,customer_id){
-        console.log(customer_name,mobile);
+    function getData(customer_name, mobile, customer_id) {
+        console.log(customer_name, mobile);
         var grand_total = document.getElementById("grand_total").value;
         var paid_amt = document.getElementById("paid_amt").value;
         var pending_amt = document.getElementById("pending_amt").value;
 
         // getting selected radio button value using js
         var radios = document.querySelectorAll('input[type="radio"]:checked');
-        var payment_mode = radios.length>0? radios[0].value: null;
+        var payment_mode = radios.length > 0 ? radios[0].value : null;
 
         // via jquery
         // $('input[type=radio]:checked', '.paymentOptions').val()
@@ -185,18 +185,25 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
         $.ajax({
             type: "POST",
             url: "placeOrder.php",
-            data: {customer_id:customer_id,customer_name:customer_name,mobile:mobile,grand_total:grand_total,paid_amt:paid_amt,pending_amt:pending_amt,payment_mode:payment_mode},
-            success: function(data)
-            {
-                // alert(data);
+            data: {
+                customer_id: customer_id,
+                customer_name: customer_name,
+                mobile: mobile,
+                grand_total: grand_total,
+                paid_amt: paid_amt,
+                pending_amt: pending_amt,
+                payment_mode: payment_mode
+            },
+            success: function(data) {
+                // console.log(data);
                 document.getElementById('message').innerHTML = data;
-                
+
                 const myTimeout = setTimeout(myGreeting, 1000);
+
                 function myGreeting() {
-                    window.location="dashboard.php";
+                    window.location = "dashboard.php";
                 }
             }
         });
     }
 </script>
-

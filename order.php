@@ -44,7 +44,7 @@ while ($row = mysqli_fetch_array($sqlquery2)){
 <input class="form-control" type="search" id="search" name="search" placeholder="Search Customer" aria-label="Search" autocomplete="off">
 </div>
 
-<div class="search m-4" id="search-data"></div>
+<div class="search my-4 mx-2" id="search-data"></div>
 <?php } else{
   echo '<div class="alert alert-danger" role="alert">
           You are Not allowed to placed Order

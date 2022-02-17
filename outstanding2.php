@@ -50,13 +50,13 @@ while ($row = mysqli_fetch_array($sqlquery)){
     <?php 
         foreach($res as $items){
             //order_id=<?php echo urlencode($encoded_data)&
-            ?><a style="text-decoration: none; text-transform:capitalize; color:black;" href="outstandingDetail2.php?cust_name=<?php echo $items['customer_name']; ?>"><div class="m-4 bg-light p-4">
+            ?><a style="text-decoration: none; text-transform:capitalize; color:black;" href="outstandingDetail2.php?cust_name=<?php echo $items['customer_name']; ?>"><div class="my-4 bg-light p-3">
             <div class="row">
-              <div class="col-4">
-                <h6><?php echo $items['customer_name']; ?></h6>
+              <div class="col-8">
+                <h6 class="mb-0"><?php echo $items['customer_name']; ?></h6>
               </div>
-              <div class="col-6">
-              <h6 class="float-end">₹ <?php echo $items['pending_amt']; ?></h6>
+              <div class="col-4">
+              <h6 class="float-end mb-0">₹ <?php echo $items['pending_amt']; ?></h6>
               </div>
               <!-- <p><?php echo $items['date']; ?></p> -->
             </div>

@@ -58,43 +58,47 @@ $tot_qty = mysqli_fetch_array($exec_qty);
 
   <div class="container-fluid bg-primary text-light">
 
-    <div class="row">
+    <div class="row py-2">
       <div class="col-4">
-        <p class="text-center">Sold</p>
-        <h6 class="text-center"><?php echo $tot_qty['qty'] ?></h6>
+        <p class="text-center mb-2">Sold</p>
+        <h6 class="text-center mb-0"><?php echo $tot_qty['qty'] ?></h6>
       </div>
       <div class="col-4">
-        <p class="text-center">Total</p>
-        <h6 class="text-center"><?php echo count($orders); ?></h6>
+        <p class="text-center mb-2">Total</p>
+        <h6 class="text-center mb-0"><?php echo count($orders); ?></h6>
       </div>
       <div class="col-4">
-        <p class="text-center">Earning</p>
-        <h6 class="text-center">₹ <?php echo $tot_amount['tot_amt'] ?></h6>
+        <p class="text-center mb-2">Earning</p>
+        <h6 class="text-center mb-0">₹ <?php echo $tot_amount['tot_amt'] ?></h6>
       </div>
     </div>
   </div>
 
 
   <section>
-    <div class="row">
-    <div class="col-xl-6 col-sm-6 col-6 mt-3" style="width:40%;background-color: #fff;">
-        <a href="items.php" style="text-decoration: none; color:#000;"><div class="row" style="margin-left:10px;">
-          <div class="col-4 mt-2">
-            <p class="text-center display-2" style="color: #174482; "><i class="fas fa-shopping-basket" style="font-size: 30px;"></i></p>
+    <div class="row my-3 mx-2">
+    <div class="col-xl-6 col-sm-6 col-6 py-3" style="background-color:#fff; margin-right:3px;
+    width: calc(50% - 3px);">
+        <a href="items.php" style="text-decoration: none; color:#000;">
+        <div class="row align-items-center">
+          <div class="col-4">
+            <p class="text-center  mb-0" style="color: #174482; "><i class="fas fa-shopping-basket" style="font-size:22px;"></i></p>
           </div>
-          <div class="col-8">
-            <p>Items</p>(<?php echo count($res) ?>)
+          <div class="col-8 d-flex">
+            <p class="mb-0">Items</p>(<?php echo count($res) ?>)
           </div>
         </div></a>
     </div>
 
-    <div class="col-xl-6 col-sm-6 col-6 mt-3" style="width:40%;background-color: #fff; position: relative; left:30px;">
-    <a href="contacts.php" style="text-decoration: none; color:#000;"><div class="row">
-          <div class="col-4 mt-2">
-            <p class="text-center display-2" style="color: #942615; "><i class="fas fa-id-card" style="font-size: 30px;"></i></p>
+    <div class="col-xl-6 col-sm-6 col-6 py-3" style="background-color:#fff; margin-left: 3px;
+    width: calc(50% - 3px);">
+    <a href="contacts.php" style="text-decoration: none; color:#000;">
+    <div class="row">
+          <div class="col-4">
+            <p class="text-center mb-0" style="color: #942615; "><i class="fas fa-id-card" style="font-size:22px;"></i></p>
           </div>
-          <div class="col-8">
-            <p>Contacts</p> (<?php echo count($res2) ?>)
+          <div class="col-8 d-flex">
+            <p class="mb-0">Contacts</p> (<?php echo count($res2) ?>)
             
           </div>
         </div></a>
@@ -103,25 +107,30 @@ $tot_qty = mysqli_fetch_array($exec_qty);
   </section>
 
   <section>
-    <div class="row">
-    <div class="col-xl-6 col-sm-6 col-6 mt-3" style="width:40%;background-color: #fff;">
-        <a href="editall.php" style="text-decoration: none; color:#000;"><div class="row" style="margin-left:10px;">
-          <div class="col-4 mt-2">
-            <p class="text-center display-2" style="color: #174482; "><i class="far fa-edit" style="font-size: 30px;"></i></p>
+    <div class="row my-3 mx-2">
+    <div class="col-xl-6 col-sm-6 col-6 py-3" style="background-color:#fff; margin-right:3px;
+    width: calc(50% - 3px);">
+        <a href="editall.php" style="text-decoration: none; color:#000;">
+        <div class="row align-items-center">
+          <div class="col-4">
+            <p class="text-center  mb-0" style="color: #174482; "><i class="fas fa-edit" style="font-size:22px;"></i></p>
           </div>
-          <div class="col-8">
-            <p class="mt-4">Update Stock</p>
+          <div class="col-8 d-flex">
+            <p class="mb-0">Update Stock</p>
           </div>
         </div></a>
     </div>
 
-    <div class="col-xl-6 col-sm-6 col-6 mt-3" style="width:40%;background-color: #fff; position: relative; left:30px;">
-    <a href="order.php" style="text-decoration: none; color:#000;"><div class="row">
-          <div class="col-4 mt-2">
-            <p class="text-center display-2" style="color: #942615;"><i class="fas fa-shopping-cart" style="font-size: 30px;"></i></p>
+    <div class="col-xl-6 col-sm-6 col-6 py-3" style="background-color:#fff; margin-left: 3px;
+    width: calc(50% - 3px);">
+    <a href="order.php" style="text-decoration: none; color:#000;">
+    <div class="row">
+          <div class="col-4">
+            <p class="text-center mb-0" style="color: #942615; "><i class="fas fa-shopping-cart" style="font-size:22px;"></i></p>
           </div>
-          <div class="col-8">
-          <p class="mt-4">Place Order</p>
+          <div class="col-8 d-flex">
+            <p class="mb-0">Place Order</p>
+            
           </div>
         </div></a>
     </div>
@@ -129,25 +138,30 @@ $tot_qty = mysqli_fetch_array($exec_qty);
   </section>
 
   <section>
-    <div class="row">
-    <div class="col-xl-6 col-sm-6 col-6 mt-3" style="width:40%;background-color: #fff;">
-        <a href="outstanding2.php" style="text-decoration: none; color:#000;"><div class="row" style="margin-left:10px;">
-          <div class="col-4 mt-2">
-            <p class="text-center display-2" style="color: #174482; "><i class="fas fa-money-bill-alt" style="font-size: 30px;"></i></p>
+    <div class="row my-3 mx-2">
+    <div class="col-xl-6 col-sm-6 col-6 py-3" style="background-color:#fff; margin-right:3px;
+    width: calc(50% - 3px);">
+        <a href="outstanding2.php" style="text-decoration: none; color:#000;">
+        <div class="row align-items-center">
+          <div class="col-4">
+            <p class="text-center  mb-0" style="color: #174482; "><i class="fas fa-money-bill-alt" style="font-size:22px;"></i></p>
           </div>
-          <div class="col-8">
-            <p class="mt-4">Pendings</p>
+          <div class="col-8 d-flex">
+            <p class="mb-0">Pendings</p>
           </div>
         </div></a>
     </div>
 
-    <div class="col-xl-6 col-sm-6 col-6 mt-3" style="width:40%;background-color: #fff; position: relative; left:30px;">
-    <a href="orderdetail.php" style="text-decoration: none; color:#000;"><div class="row">
+    <div class="col-xl-6 col-sm-6 col-6 py-3" style="background-color:#fff; margin-left: 3px;
+    width: calc(50% - 3px);">
+    <a href="orderdetail.php" style="text-decoration: none; color:#000;">
+    <div class="row">
           <div class="col-4">
-            <p class="text-center display-2" style="color: #942615;"><i class="fas fa-info-circle" style="font-size: 30px;"></i></p>
+            <p class="text-center mb-0" style="color: #942615; "><i class="fas fa-info-circle" style="font-size:22px;"></i></p>
           </div>
-          <div class="col-8">
-          <p class="mt-4">Order Details</p>
+          <div class="col-8 d-flex">
+            <p class="mb-0">Order Details</p>
+            
           </div>
         </div></a>
     </div>

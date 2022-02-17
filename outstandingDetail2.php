@@ -67,6 +67,12 @@ $total_paid_pending = mysqli_fetch_array($exec);
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <title>Outstanding Customer Detail</title>
+  <style>  
+    body {  
+        font-size:14px;
+        line-height:16px;
+    }  
+</style>   
 </head>
 
 <body style="background-color: #f0f2f7;">

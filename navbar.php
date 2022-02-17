@@ -35,11 +35,12 @@ include 'dbcon.php';
   </div>
 </nav> -->
 <div class="container-fluid" style="box-shadow: 20px 20px 50px #8aaae6 inset;">
-  <div class="row">
-
-    <div class="col-12 d-flex">
-    <a class="nav-link text-dark" style="font-size: 24px;" href="dashboard.php">Home</a>
-    <p style="margin-top:5%; margin-left:40%;">Hello <?php if(isset($_COOKIE['loginid'])){ echo $row['username'];}else{echo "";}  ?></p>
+  <div class="row align-items-center py-2">
+    <div class="col-6">
+      <a class="nav-link text-dark p-0" style="font-size: 24px;" href="dashboard.php">Home</a>
+    </div>
+    <div class="col-6 text-end">
+    <p class="mb-0">Hello <?php if(isset($_COOKIE['loginid'])){ echo $row['username'];}else{echo "";}  ?></p>
     </div>
   </div>
 </div>

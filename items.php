@@ -28,22 +28,22 @@ while ($row = mysqli_fetch_array($sqlquery)){
 <body style="background-color: #f0f2f7;">
 <?php include 'header.php' ?>
     <form class="d-flex col-lg-2" action="search.php" method="GET">
-        <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search Items" aria-label="Search" autocomplete="off">
+        <input class="form-control mx-2 mt-2" type="search" id="search" name="search" placeholder="Search Items" aria-label="Search" autocomplete="off">
         <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
     </form>
-<h2 class="text-center mt-4">Item List</h2>
+<h2 class="text-center my-3">Item List</h2>
 <div class="container" id="search-item">
     <?php 
         foreach($res as $items){
-            ?><div class="m-4 bg-light p-4"><a class="text-dark" href="itemdetail.php?itemid=<?php echo $items['id']; ?>" style="text-decoration: none; text-transform:capitalize;">
+            ?><div class="my-2 bg-light p-3"><a class="text-dark" href="itemdetail.php?itemid=<?php echo $items['id']; ?>" style="text-decoration: none; text-transform:capitalize;">
             <div class="row">
-              <div class="col-4">
+              <div class="col-6">
                 <h6><?php echo $items['name']; ?></h6>
               </div>
-              <div class="col-2">
+              <div class="col-3">
               <h6><?php echo $items['qty']; ?></h6>
               </div>
-              <div class="col-4">
+              <div class="col-3">
               <h6 class="float-end">₹ <?php echo $items['selling_price']; ?></h6>
               </div>
               <!-- <div class="col-2">

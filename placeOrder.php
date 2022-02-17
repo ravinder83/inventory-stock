@@ -8,9 +8,13 @@ $paid_amt = $_POST['paid_amt'];
 $pending_amt = $_POST['pending_amt'];
 $payment_mode = $_POST['payment_mode'];
 
+date_default_timezone_set("Asia/Kolkata");
+$dateHalf = date('Y-m-d');
+$dateFull = date('Y-m-d H:i:s');
+
 // 1. insert order placed info in order table
-$placeOrder = "Insert Into orders (customer_id,customer_name,mobile_no,payment_mode,paid_amt,pending_amt,total_amt)
-                Values('$customer_id','$customer_name','$mobile','$payment_mode','$paid_amt','$pending_amt','$grand_total')";
+$placeOrder = "Insert Into orders (customer_id,customer_name,mobile_no,payment_mode,paid_amt,pending_amt,total_amt,date)
+                Values('$customer_id','$customer_name','$mobile','$payment_mode','$paid_amt','$pending_amt','$grand_total','$dateHalf')";
 $exec_placeOrder = mysqli_query($con,$placeOrder);
 
 $getOrderId = "Select id from orders Order By id desc;";
@@ -30,7 +34,7 @@ foreach($cart_data as $item){
     $price = $item['selling_price'];
     $qty = $item['qty'];
     $c_id = $item['c_id'];
-    $sql = "insert into orderitems(c_id, order_id, product_name,price,qty) values('$c_id', '$order_id', '$product_name','$price','$qty')";
+    $sql = "insert into orderitems(c_id, order_id, product_name,price,qty,date) values('$c_id', '$order_id', '$product_name','$price','$qty','$dateFull')";
     $exec_sql = mysqli_query($con,$sql);
 }
 // 3. empty user cart

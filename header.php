@@ -23,12 +23,18 @@ if(isset ($_COOKIE['loginid'])){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
   <title>Dashboard</title>
+  <style>  
+    body {  
+        font-size:14px;
+        line-height:16px;
+    }  
+</style> 
 </head>
 
 <body>
   <?php include 'navbar.php'; ?>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row align-items-center mt-3 mb-2">
       <div class="col-6 col-sm-6 d-flex">
           <!-- <p>Hello <?php if(isset($_COOKIE['loginid'])){ echo $row['username'];}else{echo "";}  ?></p> -->
           <?php
@@ -41,21 +47,21 @@ if(isset ($_COOKIE['loginid'])){
               $url.= $_SERVER['HTTP_HOST'];     
               $url.= $_SERVER['REQUEST_URI'];    
                 if($url === 'http://localhost/inventory%20stock%20management/contacts.php'){
-                 ?><a href="addcontact.php" class="btn btn-primary" style="font-size: 11px; margin:7px; margin-left:14px; text-align:center; height:35px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Contact</a><?php
+                 ?><a href="addcontact.php" class="btn btn-primary" style="font-size:12px; text-align:center; height:35px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Contact</a><?php
                 }else if($url === 'http://localhost/inventory%20stock%20management/editall.php'){
                   ?><?php
                 }
                 
                 else{
-                  ?><a href="product.php" class="btn btn-primary" style="font-size: 11px; margin:7px; margin-left:14px; text-align:center; height:35px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Item</a><?php
+                  ?><a href="product.php" class="btn btn-primary" style="font-size: 12px; text-align:center; height:35px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Item</a><?php
                 }
           }
           ?>
       </div>
 
-      <div class="col-6 col-sm-6">
-          <a href="logout.php" class="btn btn-light btn-sm" style="margin-top:7px; margin-left: 25%;">
-            <span><i class="fas fa-sign-out-alt"></i></span>Log out
+      <div class="col-6 col-sm-6 text-end">
+          <a href="logout.php" class="btn btn-light btn-sm">
+            <span><i class="fas fa-sign-out-alt me-2"></i></span>Log out
           </a>
       </div>
         
