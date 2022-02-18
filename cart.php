@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
     <?php include 'header.php' ?>
     <div class="container">
         <h4>My Shopping Cart</h4>
-
+        <p><?php echo $customer[1] ?></p>
         <?php
         if (!empty($cart_details)) {
         ?>
@@ -57,11 +57,11 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Product Name</th>
+                            <th scope="col">Product</th>
                             <th scope="col">Price</th>
                             <th scope="col">Qty</th>
                             <th scope="col">Total</th>
-                            <th scope="col">Remove Cart</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>

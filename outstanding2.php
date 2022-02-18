@@ -50,7 +50,7 @@ while ($row = mysqli_fetch_array($sqlquery)){
     <?php 
         foreach($res as $items){
             //order_id=<?php echo urlencode($encoded_data)&
-            ?><a style="text-decoration: none; text-transform:capitalize; color:black;" href="outstandingDetail2.php?cust_name=<?php echo $items['customer_name']; ?>"><div class="my-4 bg-light p-3">
+            ?><a style="text-decoration: none; text-transform:capitalize; color:black;" href="outstandingDetail2.php?cust_id=<?php echo $items['customer_id']; ?>"><div class="my-4 bg-light p-3">
             <div class="row">
               <div class="col-8">
                 <h6 class="mb-0"><?php echo $items['customer_name']; ?></h6>

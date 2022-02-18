@@ -1,7 +1,7 @@
 <?php
 include 'dbcon.php';
 // $sql = "SELECT orderitems.order_id,orderitems.product_name,orders.customer_name,orders.total_amt FROM `orderitems` LEFT JOIN `orders` ON orderitems.order_id = orders.id WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) AND YEAR(orders.date) = YEAR(CURRENT_DATE())";
-$sql = "SELECT * from orders WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) AND YEAR(orders.date) = YEAR(CURRENT_DATE())";
+$sql = "SELECT * from orders WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) AND YEAR(orders.date) = YEAR(CURRENT_DATE()) ORDER BY orders.date desc";
 $sqlquery = mysqli_query($con, $sql);
 $res = [];
 while ($row = mysqli_fetch_array($sqlquery)) {
@@ -53,16 +53,16 @@ while ($row = mysqli_fetch_array($sqlquery)) {
       <?php
       foreach ($res as $items) {
       ?><a style="text-decoration: none; text-transform:capitalize; color:black;" href="orderItemDetail.php?order_id=<?php echo $items['id'] ?>&cust_name=<?php echo $items['customer_name']; ?>">
-          <div class="m-4 bg-light p-4">
+          <div class="m-4 bg-light py-3">
             <div class="row">
-              <div class="col-2">
-                <h6><?php echo $items['id']; ?></h6>
+              <div class="col-5">
+                <h6 style="font-size: 13px;"><?php echo $items['date']; ?></h6>
               </div>
               <div class="col-4">
-                <h6><?php echo $items['customer_name']; ?></h6>
+                <h6 style="font-size: 13px;"><?php echo $items['customer_name']; ?></h6>
               </div>
-              <div class="col-6">
-                <h6 class="float-end">₹ <?php echo $items['total_amt']; ?></h6>
+              <div class="col-3">
+                <h6 style="font-size: 13px;">₹ <?php echo $items['total_amt']; ?></h6>
               </div>
               <!-- <p class="text-center"><?php echo $items['date']; ?></p> -->
             </div>

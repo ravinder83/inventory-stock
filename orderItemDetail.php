@@ -28,7 +28,7 @@ while ($row = mysqli_fetch_array($sqlquery)) {
 </head>
 
 <body style="background-color: #f0f2f7;">
-    <?php //include 'header.php' ?>
+    <?php include 'header.php' ?>
     <h3 class="text-primary m-2"><a href="orderdetail.php"><i class="fas fa-backward"></i></a></h3>
     <h5 class="container m-4">Order item List</h5>
     <p class="text-danger" style="text-transform: capitalize;;"><b><?php echo $customer_name; ?></b></p>
@@ -55,12 +55,18 @@ while ($row = mysqli_fetch_array($sqlquery)) {
                 <thead>
                     <tr>
                     <div class="card-header bg-dark text-light">
-                        <b> Date : <?php echo $items['date'] ?></b>
+                        <div class="row">
+                        <div class="col-5">
+                        <p style="font-size: 13px;"><b> Date : <?php echo $items['date'] ?></b></p>
+                        </div>
+                        <div class="col-7">
+                        <p style="font-size: 13px;"><b> Payment Mode : <?php echo $items['payment_mode'] ?></b></p>
+                        </div>
+                        </div>                  
                     </div> 
-                        <!-- <th scope="col">Date</th> -->
                         <th scope="col">Product Name</th>
-                        <th scope="col">Price</th>
                         <th scope="col">Qty</th>
+                        <th scope="col">Price</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,8 +75,8 @@ while ($row = mysqli_fetch_array($sqlquery)) {
                     ?>
                         <tr>
                             <th><?php echo $items['product_name'] ?></th>
-                            <td>₹<?php echo $items['price'] ?></td>
-                            <td><?php echo $items['qty'] ?></td>
+                            <td>₹<?php echo $items['qty'] ?></td>
+                            <td><?php echo $items['price'] ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
