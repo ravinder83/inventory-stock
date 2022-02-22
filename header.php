@@ -46,9 +46,9 @@ if(isset ($_COOKIE['loginid'])){
               $url = "http://";      
               $url.= $_SERVER['HTTP_HOST'];     
               $url.= $_SERVER['REQUEST_URI'];    
-                if($url === 'http://localhost/inventory%20stock%20management/contacts.php'){
+                if($url === 'http://dev.sumedhasoftech.com/contacts.php'){
                  ?><a href="addcontact.php" class="btn btn-primary" style="font-size:12px; text-align:center; height:35px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Contact</a><?php
-                }else if($url === 'http://localhost/inventory%20stock%20management/editall.php'){
+                }else if($url === 'http://dev.sumedhasoftech.com/editall.php'){
                   ?><?php
                 }
                 

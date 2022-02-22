@@ -39,9 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $productErr = "Name is required";
   } else {
     $productName = ($_POST["pname"]);  
-    if (!preg_match("/^[a-zA-Z ]*$/", $productName)) {
-      $productErr = "Only alphabets and white space are allowed";
-    }
+    // if (!preg_match("/^[a-zA-Z ]*$/", $productName)) {
+    //   $productErr = "Only alphabets and white space are allowed";
+    // }
   }
   //selling price Validation  
   if (empty($_POST["sprice"])) {

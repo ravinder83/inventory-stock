@@ -23,6 +23,7 @@
 
 <body style="background-color: #f0f2f7;">
   <?php include 'header.php' ?>
+  <h3 class="text-primary mx-4 my-2"><a href="contacts.php"><i class="fas fa-backward"></i></a></h3>
   <h1 class="text-center">Item Detail</h1>
 
   <div class="container-fluid" style="height: 100%;display: flex;justify-content: center;align-items: center;">

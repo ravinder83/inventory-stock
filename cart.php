@@ -46,6 +46,7 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
 
 <body style="background-color: #f0f2f7;">
     <?php include 'header.php' ?>
+    <h3 class="text-primary mx-4 my-2"><a href="order.php"><i class="fas fa-backward"></i></a></h3>
     <div class="container">
         <h4>My Shopping Cart</h4>
         <p><?php echo $customer[1] ?></p>
@@ -58,8 +59,8 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
                     <thead>
                         <tr>
                             <th scope="col">Product</th>
-                            <th scope="col">Price</th>
                             <th scope="col">Qty</th>
+                            <th scope="col">Price</th>
                             <th scope="col">Total</th>
                             <th scope="col"></th>
                         </tr>
@@ -76,8 +77,8 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
                         ?>
                             <tr>
                                 <th><?php echo $items['product_name'] ?></th>
-                                <td>₹ <?php echo $items['product_price'] ?></td>
                                 <td><?php echo $items['qty'] ?></td>
+                                <td>₹<?php echo $items['product_price'] ?></td>
                                 <td>₹ <?php echo $items['product_price'] * $items['qty'] ?></td>
                                 <td class="text-center"><a class="text-danger" href="deleteCart.php?id=<?php echo $items['id'] ?>&customer_id=<?php echo $customer_id; ?>"><i class="fas fa-times" style="border: 1px solid red; margin-left:10px; padding:4px; border-radius:50%"></i></a></td>
                             </tr>

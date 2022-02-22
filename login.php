@@ -1,7 +1,7 @@
 <?php
 include 'dbcon.php';
 // session_start();
-if(isset($_COOKIE['username']))  
+if(isset($_COOKIE['loginid']))  
   {
     header('location:dashboard.php');
   }

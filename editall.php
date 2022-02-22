@@ -72,7 +72,7 @@ while ($row = mysqli_fetch_array($sqlquery)){
               array_push($ar['id'],$item['id']);
             }
             $encoded_data = json_encode($ar['id']);
-            echo '<button type="button" onclick=\'getAllData('.$encoded_data.')\' class="btn btn-primary ms-4" style="">Update All</button>';
+            echo '<button type="button" onclick=\'getAllData('.$encoded_data.')\' class="btn btn-primary m-3" style="">Update All</button>';
         ?>
 
     </form>

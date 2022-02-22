@@ -49,12 +49,13 @@ if(isset($_POST['id']))
       
     while ($row = mysqli_fetch_array($sqlquery)){
       $output .= '
-      <div class="mt-4 ">
+      <div class="mt-4">
       <div class="row align-items-center px-2 py-2 bg-light">
           
         <div class="col-5">
         <h6 style="display: flex;align-items: center;justify-content: space-between;font-size:11px" class="mb-0">'.$row['name'].' <span>('.$row['qty'].')</span></h6>
         </div>
+
         <div class="col-2">
         <h6 class="float-end mb-0" style="font-size:11px">₹ '.$row['selling_price'].'</h6>
         </div>
@@ -68,7 +69,7 @@ if(isset($_POST['id']))
     </div>
     ';
     } 
-    echo $customer_data['name'];
+    echo '<p class="text-danger" style="text-transform: capitalize;margin-left:5%;"><b>'.$customer_data['name'].'</b></p>';
     echo $output;
   }else{
     $output = '<div class="alert alert-danger" role="alert">
@@ -160,24 +161,30 @@ if(isset($_POST['searchProductData']))
 
   $output = "";
   if(mysqli_num_rows($sqlquery) > 0){
-      $output.= '<input class="form-control my-4" type="search" id="searchProduct" onkeyup="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
-      <i class="fas fa-cart-arrow-down"></i><h3 id="cartVal">('.$cart_data['count'].')</h3>
+      $output.= '<input class="form-control my-2" type="search" id="searchProduct" onkeyup="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
+      <a href="cart.php?customerId='.$cust_id.'" style="text-decoration:none;color:black;"><i class="fas fa-cart-arrow-down me-2" style="font-size:22px" id="cartVal">('.$cart_data['count'].')</i></a>
       ';
     while ($row = mysqli_fetch_array($sqlquery)){
       $output .= '
-      <div class="row">
-        <div class="col-6">
-          <div class="alert alert-light" role="alert">
-          '.$row['name'].'
-          </div>
-        </div>
+    <div class="mt-4 ">
+    <div class="row align-items-center px-2 py-2 bg-light">
+        
+      <div class="col-5">
+      <h6 style="display: flex;align-items: center;justify-content: space-between;font-size:11px" class="mb-0">'.$row['name'].' <span>('.$row['qty'].')</span></h6>
+      </div>
 
-        <div class="col-6 d-flex">
-          <input type="number"  min="0" class="text-center" style="height:60px; width:70px;" id="qty'.$row['id'].'" name="qty" placeholder="Qty">
-          <button type="button" class="btn btn-primary" style="height:60px; width:100px; margin-left:20px;"
-          onclick="addToCart('.$row['id'].','.$cust_id.',qty'.$row['id'].')">Add to cart </button>
-        </div>
-    </div>';
+      <div class="col-2">
+      <h6 class="float-end mb-0" style="font-size:11px">₹ '.$row['selling_price'].'</h6>
+      </div>
+
+      <div class="col-5 d-flex justify-content-end">
+        <input type="number" min="0" class="text-center qty" style="height:40px; width:50px;" id="qty'.$row['id'].'" name="qty" placeholder="Qty" value="1">
+        <button type="button" class="btn btn-primary" style="height:40px; width:50px; margin-left:20px;"
+        onclick="addToCart('.$row['id'].','.$cust_id.',qty'.$row['id'].')">Add</button>
+      </div>
+  </div>
+  </div>
+    ';
     } 
     //echo $customer_data['name'];
     echo $output;

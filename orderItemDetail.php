@@ -31,7 +31,7 @@ while ($row = mysqli_fetch_array($sqlquery)) {
     <?php include 'header.php' ?>
     <h3 class="text-primary m-2"><a href="orderdetail.php"><i class="fas fa-backward"></i></a></h3>
     <h5 class="container m-4">Order item List</h5>
-    <p class="text-danger" style="text-transform: capitalize;;"><b><?php echo $customer_name; ?></b></p>
+    <p class="text-danger" style="text-transform: capitalize;margin-left:5%;"><b><?php echo $customer_name; ?></b></p>
     <!-- <div class="card-header bg-dark text-light">
                <b> Date : demo</b>
             </div>   -->

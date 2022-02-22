@@ -46,9 +46,6 @@ while ($row = mysqli_fetch_array($sqlquery)){
               <div class="col-3">
               <h6 class="float-end">₹ <?php echo $items['selling_price']; ?></h6>
               </div>
-              <!-- <div class="col-2">
-                <i class="fas fa-times" style="border: 1px solid black; padding:4px; border-radius:50%"></i>
-              </div> -->
             </div>
           </a></div>
         <?php }
