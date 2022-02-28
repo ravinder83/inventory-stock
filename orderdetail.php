@@ -1,13 +1,23 @@
 <?php
 include 'dbcon.php';
 // $sql = "SELECT orderitems.order_id,orderitems.product_name,orders.customer_name,orders.total_amt FROM `orderitems` LEFT JOIN `orders` ON orderitems.order_id = orders.id WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) AND YEAR(orders.date) = YEAR(CURRENT_DATE())";
-$sql = "SELECT * from orders WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) AND YEAR(orders.date) = YEAR(CURRENT_DATE()) ORDER BY orders.date desc";
+// $sql = "SELECT * from orders WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) AND YEAR(orders.date) = YEAR(CURRENT_DATE()) ORDER BY orders.date desc";
+
+$sql = "SELECT orders.id,orders.customer_name,orders.total_amt,orders.date,orderitems.store from orders JOIN orderitems ON orderitems.order_id = orders.id WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) AND YEAR(orders.date) = YEAR(CURRENT_DATE()) GROUP BY orders.total_amt ORDER BY orders.date desc;";
 $sqlquery = mysqli_query($con, $sql);
 $res = [];
 while ($row = mysqli_fetch_array($sqlquery)) {
   array_push($res, $row);
 }
 
+// fetching data from store table
+$storeData = [];
+$sqlStore = "select * from store";
+$sqlqueryStore = mysqli_query($con,$sqlStore);
+while($rows = mysqli_fetch_array($sqlqueryStore))
+{
+    array_push($storeData, $rows);
+}
 ?>
 
 <!doctype html>
@@ -45,6 +55,16 @@ while ($row = mysqli_fetch_array($sqlquery)) {
       </div>
       <input type="button" onclick="searchData()" name="search" value="Search Order" class="btn btn-outline-success mt-4">
     </form>
+    <div class="mb-3">
+        <select class="form-select w-50" style="margin-left: 40%;" aria-label="Default select example" id="storeValue" name="store" onchange="orderFilter()">
+        <option value="">All Store</option>
+            <?php 
+            foreach ($storeData as $item) {
+                ?><option value=<?php echo $item['value']; ?>><?php echo $item['value']; ?></option><?php
+            }
+            ?>
+        </select>
+      </div>
   </div>
   <div class="container-fluid mt-4">
 
@@ -64,7 +84,7 @@ while ($row = mysqli_fetch_array($sqlquery)) {
               <div class="col-3">
                 <h6 style="font-size: 13px;">₹ <?php echo $items['total_amt']; ?></h6>
               </div>
-              <!-- <p class="text-center"><?php echo $items['date']; ?></p> -->
+              <!-- <p class="text-center"><?php echo $items['store']; ?></p> -->
             </div>
           </div>
         </a>
@@ -92,6 +112,19 @@ while ($row = mysqli_fetch_array($sqlquery)) {
         start_date: start_date,
         end_date: end_date
       },
+      success: function(data) {
+        $('#search-item').html(data);
+        console.log(data);
+      }
+    });
+  }
+
+  function orderFilter(){
+    var storeValue = document.getElementById('storeValue').value;
+    $.ajax({
+      type: "POST",
+      url: "filterOrder.php",
+      data: {storeValue : storeValue},
       success: function(data) {
         $('#search-item').html(data);
         console.log(data);

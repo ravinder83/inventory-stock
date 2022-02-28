@@ -67,7 +67,7 @@
         <label class="form-label">Cost Price</label>
         <input type="text" class="form-control" id="costPrice" name="costPrice" value=<?php echo $data['cost_price'] ?>>
       </div>
-      <button type="submit" name="submit" class="btn btn-primary">Update</button>
+      <button type="submit" name="submit" class="btn btn-primary">Update</button> 
   </form>
       </div>
       </div>

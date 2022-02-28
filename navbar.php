@@ -1,5 +1,19 @@
 <?php
 include 'dbcon.php';
+session_start();
+$id;
+if(isset($_SESSION['customer_id']))
+{
+  $id =  $_SESSION['customer_id'];
+}
+else{
+  $id = "";
+}
+  // getting cart count value
+  $cart_count = "select count(id) as 'count' from temp_cart where c_id = '$id'";
+  $sql_cart_count = mysqli_query($con,$cart_count);
+  $cart_data = mysqli_fetch_array($sql_cart_count);
+
 ?>
 
 <!doctype html>
@@ -16,28 +30,20 @@ include 'dbcon.php';
 </head>
 
 <body style="background-color: #f0f2f7;";>
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <h3 class="navbar-brand">Inventory Stock Tracker</h3>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="dashboard.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="items.php">Items</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav> -->
 <div class="container-fluid" style="box-shadow: 20px 20px 50px #8aaae6 inset;">
   <div class="row align-items-center py-2">
-    <div class="col-6">
+    <div class="col-6 d-flex">
       <a class="nav-link text-dark p-0" style="font-size: 24px;" href="dashboard.php">Home</a>
+      <?php 
+          if(isset($_SESSION['customer_id']))
+          {
+            ?>
+            <a href="cart.php?customerId=<?php echo $id ?>" style="text-decoration:none;color:black;"><i class="fas fa-cart-arrow-down mx-2 my-2" style="font-size:22px" id="cartVal">(<?php echo $cart_data['count'] ?>)</i></a>    
+            <?php
+          }else{
+            echo "";
+          }
+      ?>
     </div>
     <div class="col-6 text-end">
     <p class="mb-0">Hello <?php if(isset($_COOKIE['loginid'])){ echo $row['username'];}else{echo "";}  ?></p>

@@ -29,12 +29,14 @@ $cart_data = [];
 while($row = mysqli_fetch_array($exec_cart)){
     array_push($cart_data,$row);
 }
+
 foreach($cart_data as $item){
     $product_name = $item['product_name'];
     $price = $item['selling_price'];
     $qty = $item['qty'];
     $c_id = $item['c_id'];
-    $sql = "insert into orderitems(c_id, order_id, product_name,price,qty,date) values('$c_id', '$order_id', '$product_name','$price','$qty','$dateFull')";
+    $store = $item['store'];
+    $sql = "insert into orderitems(c_id, order_id, product_name,price,qty,store,date) values('$c_id', '$order_id', '$product_name','$price','$qty','$store','$dateFull')";
     $exec_sql = mysqli_query($con,$sql);
 }
 // 3. empty user cart

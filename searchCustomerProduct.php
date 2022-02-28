@@ -1,5 +1,6 @@
 <?php
 include 'dbcon.php';
+session_start();
 // include 'style.css';
 // search for customer
 if(isset($_POST['search']))
@@ -32,19 +33,25 @@ if(isset($_POST['id']))
   $sqlqueryCustomer = mysqli_query($con,$customer_detail);
   $customer_data = mysqli_fetch_array($sqlqueryCustomer);
 
+
+  $_SESSION['customer_name'] = $customer_data['name'];
+  $_SESSION['customer_id'] = $customer_data['id'];
+
+  $session_name =   $_SESSION['customer_name'] = $customer_data['name'];
+  $session_id =     $_SESSION['customer_id'] = $customer_data['id'];
+
   // getting cart count value
-  $cart_count = "select count(id) as 'count' from temp_cart where c_id = '$cust_id'";
+  $cart_count = "select count(id) as 'count' from temp_cart where c_id = '$session_id'";
   $sql_cart_count = mysqli_query($con,$cart_count);
   $cart_data = mysqli_fetch_array($sql_cart_count);
 
   // fetching products record
-  $sql = "select * FROM product";
+  $sql = "select * FROM product order by name";
   $sqlquery = mysqli_query($con,$sql);
   $output = "";
   if(mysqli_num_rows($sqlquery) > 0){
     
-      $output.= '<input class="form-control my-2" type="search" id="searchProduct" onkeyup="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
-      <a href="cart.php?customerId='.$cust_id.'" style="text-decoration:none;color:black;"><i class="fas fa-cart-arrow-down me-2" style="font-size:22px" id="cartVal">('.$cart_data['count'].')</i></a>
+      $output.= '<input class="form-control my-2" type="search" id="searchProduct" onblur="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
       ';
       
     while ($row = mysqli_fetch_array($sqlquery)){
@@ -62,14 +69,15 @@ if(isset($_POST['id']))
 
         <div class="col-5 d-flex justify-content-end">
           <input type="number" min="0" class="text-center qty" style="height:40px; width:50px;" id="qty'.$row['id'].'" name="qty" placeholder="Qty" value="1">
+          <input type="hidden" name="store" value="'.$row['store'].'"/>
           <button type="button" class="btn btn-primary" style="height:40px; width:50px; margin-left:20px;"
-          onclick="addToCart('.$row['id'].','.$cust_id.',qty'.$row['id'].')">Add</button>
+          onclick=\'addToCart('.$row['id'].','.$cust_id.',qty'.$row['id'].',"'.$row['store'].'")\'>Add</button>
         </div>
     </div>
     </div>
     ';
     } 
-    echo '<p class="text-danger" style="text-transform: capitalize;margin-left:5%;"><b>'.$customer_data['name'].'</b></p>';
+    echo '<p class="text-danger" style="text-transform: capitalize;margin-left:5%;"><b>'.$session_name.'</b></p>';
     echo $output;
   }else{
     $output = '<div class="alert alert-danger" role="alert">
@@ -81,11 +89,12 @@ if(isset($_POST['id']))
 
 // Add to cart / Insert record into cart
 
-if(isset($_POST['product_id']) && isset($_POST['cust_id']) && isset($_POST['qty_id']))
+if(isset($_POST['product_id']) && isset($_POST['cust_id']) && isset($_POST['qty_id']) && isset($_POST['store']))
 {
   $product_id = $_POST['product_id'];
   $cust_id = $_POST['cust_id'];
   $qty_id = $_POST['qty_id'];
+  $store = $_POST['store'];
   $output = "";
   if(!empty($qty_id)){
 
@@ -110,7 +119,7 @@ if(isset($_POST['product_id']) && isset($_POST['cust_id']) && isset($_POST['qty_
       $row = mysqli_fetch_array($exec_getProduct);
       $productName = $row['name'];
       $price = $row['selling_price'];
-      $sql = "Insert Into temp_cart (c_id,p_id,qty,product_name,product_price) Values ('$cust_id','$product_id','$qty_id','$productName','$price')";
+      $sql = "Insert Into temp_cart (c_id,p_id,qty,product_name,product_price,store) Values ('$cust_id','$product_id','$qty_id','$productName','$price','$store')";
       $sqlquery = mysqli_query($con,$sql);
       if($sqlquery){
         $output .= '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -150,6 +159,11 @@ if(isset($_POST['product_id']) && isset($_POST['cust_id']) && isset($_POST['qty_
 if(isset($_POST['searchProductData']))
 {
   $cust_id = $_POST['cust_id'];
+  // fetching customer record
+  $customer_detail = "Select * from customer where id = '$cust_id'";
+  $sqlqueryCustomer = mysqli_query($con,$customer_detail);
+  $customer_data = mysqli_fetch_array($sqlqueryCustomer);
+
   $search_value = $_POST['searchProductData'];
   $sql = "select * FROM product WHERE name LIKE '%$search_value%'";
   $sqlquery = mysqli_query($con,$sql);
@@ -161,8 +175,7 @@ if(isset($_POST['searchProductData']))
 
   $output = "";
   if(mysqli_num_rows($sqlquery) > 0){
-      $output.= '<input class="form-control my-2" type="search" id="searchProduct" onkeyup="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
-      <a href="cart.php?customerId='.$cust_id.'" style="text-decoration:none;color:black;"><i class="fas fa-cart-arrow-down me-2" style="font-size:22px" id="cartVal">('.$cart_data['count'].')</i></a>
+      $output.= '<input class="form-control my-2" type="search" id="searchProduct" onblur="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
       ';
     while ($row = mysqli_fetch_array($sqlquery)){
       $output .= '
@@ -186,7 +199,7 @@ if(isset($_POST['searchProductData']))
   </div>
     ';
     } 
-    //echo $customer_data['name'];
+    echo '<p class="text-danger" style="text-transform: capitalize;margin-left:5%;"><b>'.$customer_data['name'].'</b></p>';
     echo $output;
   }else{
     $output = '<div class="alert alert-danger" role="alert">

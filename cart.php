@@ -81,6 +81,7 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
                                 <td>₹<?php echo $items['product_price'] ?></td>
                                 <td>₹ <?php echo $items['product_price'] * $items['qty'] ?></td>
                                 <td class="text-center"><a class="text-danger" href="deleteCart.php?id=<?php echo $items['id'] ?>&customer_id=<?php echo $customer_id; ?>"><i class="fas fa-times" style="border: 1px solid red; margin-left:10px; padding:4px; border-radius:50%"></i></a></td>
+                                <input type="text" value="<?php echo $items['store'] ?>">
                             </tr>
                         <?php
                         }
@@ -109,7 +110,7 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
                     ?>
                         <div class="col pe-0">
                             <div class="form-check">
-                                <input class="form-check-input radio" value="<?php echo $payment['payment_method'] ?>" type="radio" name="radio" checked id="<?php echo $payment['id'] ?>">
+                                <input class="form-check-input radio" value="<?php echo $payment['payment_method'] ?>" type="radio" required name="radio"  id="<?php echo $payment['id'] ?>">
                                 <label class="form-check-label" for="flexRadioDefault1" style="font-size:12px;">
                                     <?php echo $payment['payment_method'] ?>
                                 </label>
@@ -178,6 +179,7 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
         // getting selected radio button value using js
         var radios = document.querySelectorAll('input[type="radio"]:checked');
         var payment_mode = radios.length > 0 ? radios[0].value : null;
+
 
         // via jquery
         // $('input[type=radio]:checked', '.paymentOptions').val()

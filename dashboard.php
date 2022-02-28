@@ -1,6 +1,5 @@
 <?php
 include 'dbcon.php';
-
 // for fetching number of items
 $sql = "Select * from product";
 $sqlquery = mysqli_query($con,$sql);

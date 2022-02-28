@@ -35,7 +35,8 @@ while ($row = mysqli_fetch_array($sqlquery2)){
 </head>
 
 <body style="background-color: #f0f2f7;">
-<?php include 'header.php' ?>
+<?php include 'header.php'
+ ?>
 <?php if($row['role'] == 1){ ?>
 <div class="container" id="cart-result">
 
@@ -43,6 +44,16 @@ while ($row = mysqli_fetch_array($sqlquery2)){
 <div class="container">
 <input class="form-control" type="search" id="search" name="search" placeholder="Search Customer" aria-label="Search" autocomplete="off">
 </div>
+<?php 
+  // if(isset($_SESSION['customer_name']))
+  // {
+  //   $user = $_SESSION['customer_name'];
+  //   echo "Selected user $user ";
+  // }
+  // else{
+  //   echo '';
+  // }
+?>
 
 <div class="search my-4 mx-2" id="search-data"></div>
 <?php } else{
@@ -95,7 +106,7 @@ while ($row = mysqli_fetch_array($sqlquery2)){
 
 <script>
   // define function to add product in cart
-  function addToCart(product_id,cust_id,qty_id)
+  function addToCart(product_id,cust_id,qty_id,store)
   {
     var qty = document.getElementById(qty_id.id).value;
     if(qty == ""){
@@ -104,7 +115,7 @@ while ($row = mysqli_fetch_array($sqlquery2)){
     $.ajax({
         type: "POST",
         url: "searchCustomerProduct.php",
-        data: {product_id : product_id , cust_id : cust_id , qty_id : qty},
+        data: {product_id : product_id , cust_id : cust_id , qty_id : qty , store:store},
         success: function(data)
         {
           // $('#cart-result').html(data);
