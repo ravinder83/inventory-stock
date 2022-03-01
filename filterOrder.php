@@ -1,9 +1,17 @@
 <?php
 include 'dbcon.php';
-$storeValue = $_POST['storeValue'];
-
-$filter_data = "SELECT orders.id,orders.customer_name,orders.total_amt,orders.date,orderitems.store from orders JOIN orderitems ON orderitems.order_id = orders.id WHERE orderitems.store LIKE '%$storeValue%' GROUP BY orders.total_amt ORDER BY orders.date desc;";
-    $sqlquery2 = mysqli_query($con,$filter_data);
+$start_date = $_POST['start_date'];
+$end_date = $_POST['end_date'];
+$store_value = $_POST['storeValue'];
+if(isset($start_date) && !empty($start_date) && isset($end_date)&& !empty($end_date) && isset($store_value)&& !empty($store_value))
+{
+    $search_date = "SELECT orders.id,orders.customer_name,orders.total_amt,orders.date,orderitems.store from orders JOIN orderitems ON orderitems.order_id = orders.id WHERE orderitems.store LIKE '%$store_value%' AND orders.date BETWEEN '$start_date' AND '$end_date' GROUP BY orders.total_amt ORDER BY orders.date desc";
+}
+else
+{
+    $search_date = "SELECT orders.id,orders.customer_name,orders.total_amt,orders.date,orderitems.store from orders JOIN orderitems ON orderitems.order_id = orders.id WHERE orderitems.store LIKE '%$store_value%' GROUP BY orders.total_amt ORDER BY orders.date desc";
+}
+    $sqlquery2 = mysqli_query($con,$search_date);
     $res2 = [];
     while ($row2 = mysqli_fetch_array($sqlquery2)){
         array_push($res2, $row2);

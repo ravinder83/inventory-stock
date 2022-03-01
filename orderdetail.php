@@ -103,14 +103,16 @@ while($rows = mysqli_fetch_array($sqlqueryStore))
   function searchData() {
     var start_date = document.getElementById("start_date").value;
     var end_date = document.getElementById("end_date").value;
-    console.log(start_date, end_date);
+    var storeValue = document.getElementById('storeValue').value;
+    console.log(start_date, end_date,storeValue);
 
     $.ajax({
       type: "POST",
       url: "searchOrder.php",
       data: {
         start_date: start_date,
-        end_date: end_date
+        end_date: end_date,
+        storeValue: storeValue
       },
       success: function(data) {
         $('#search-item').html(data);
@@ -120,11 +122,18 @@ while($rows = mysqli_fetch_array($sqlqueryStore))
   }
 
   function orderFilter(){
+    var start_date = document.getElementById("start_date").value;
+    var end_date = document.getElementById("end_date").value;
     var storeValue = document.getElementById('storeValue').value;
+    console.log(start_date, end_date,storeValue);
     $.ajax({
       type: "POST",
       url: "filterOrder.php",
-      data: {storeValue : storeValue},
+      data: {
+        start_date: start_date,
+        end_date: end_date,
+        storeValue: storeValue
+      },
       success: function(data) {
         $('#search-item').html(data);
         console.log(data);

@@ -2,12 +2,16 @@
 include 'dbcon.php';
 $start_date = $_POST['start_date'];
 $end_date = $_POST['end_date'];
-$search_date = "SELECT * from orders Where date BETWEEN '$start_date' AND '$end_date' ORDER BY date desc";
-    $sqlquery2 = mysqli_query($con,$search_date);
+$store_value = $_POST['storeValue'];
+$search_date = "SELECT orders.id,orders.customer_name,orders.total_amt,orders.date,orderitems.store from orders JOIN orderitems ON orderitems.order_id = orders.id WHERE orderitems.store LIKE '%$store_value%' AND orders.date BETWEEN '$start_date' AND '$end_date' GROUP BY orders.total_amt ORDER BY orders.date desc";
+    $sqlquery2 = mysqli_query($con,$search_date)or die( mysqli_error($con));
     $res2 = [];
     while ($row2 = mysqli_fetch_array($sqlquery2)){
         array_push($res2, $row2);
     }
+    // echo "<pre>";
+    // print_r($res2);
+    // die;
 $output = "";
 
 if(!empty($res2))
