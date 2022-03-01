@@ -24,14 +24,12 @@ if(isset($_POST['submit']))
         $order_id = $_POST['id'];
         $paid = $_POST['paid'];
         $pending = $_POST['pending'];
+        $paymentMode = $_POST['radio'];
 
-        // echo $order_id;
-        // echo $paid;
-        // echo $pending;
-        // echo $cust_id;
+        // echo $order_id , $paid , $pending , $paymentMode;
         // die;
 
-        $update = "update orders SET paid_amt='$paid',pending_amt='$pending' where id='$order_id' AND customer_id = '$cust_id'";
+        $update = "update orders SET paid_amt='$paid',pending_amt='$pending',payment_mode='$paymentMode' where id='$order_id' AND customer_id = '$cust_id'";
         $runupdate = mysqli_query($con,$update);
         if($runupdate)
         {
@@ -41,6 +39,14 @@ if(isset($_POST['submit']))
         {
             echo "failed";
         }
+}
+
+// fetching payment_mode
+$payment_mode = "Select * from payment_mode";
+$exec_payment_mode = mysqli_query($con, $payment_mode);
+$mode_details = [];
+while ($row = mysqli_fetch_array($exec_payment_mode)) {
+    array_push($mode_details, $row);
 }
 ?>
 
@@ -109,7 +115,7 @@ if(isset($_POST['submit']))
                 </tbody>
                 </table>
                 <div class="container">
-                    <form method="POST" class="d-flex">
+                    <form method="POST">
                 <div class="row">
                 <div class="col-4">
                         <h6>Total</h6>
@@ -124,8 +130,27 @@ if(isset($_POST['submit']))
                         <input class="w-50 text-danger" id="pending_amt<?php echo $order->id ?>" name="pending" onkeyup="calc_paid_amt('pending_amt<?php  echo $order->id  ?>','grand_total<?php echo $order->id  ?>','paid_amt<?php echo $order->id  ?>')" type="number" style="border: none; text-align:center; font-weight:bold;"  value="<?php echo $pend_amt ?>">
                     </div>
                 </div>
-                <button type="submit" name="submit" style="font-size: 14px;" class="btn btn-warning my-2">Update</button>
-                <input type="hidden" name="id" value="<?php echo $order->id ?>">
+                <div class="row">
+                    <div class="col-8">
+
+                <h5 class="mb-0 mx-2 my-4" style="font-size: 14px;">Payment Method</h5>
+                    <?php
+                    foreach ($mode_details as $payment) {
+                    ?>
+                                <input class="form-check-input radio" value="<?php echo $payment['payment_method'] ?>" type="radio" required name="radio"  id="<?php echo $payment['id'] ?>">
+                                <label class="form-check-label" for="flexRadioDefault1" style="font-size:12px;">
+                                    <?php echo $payment['payment_method'] ?>
+                                </label>     
+                    <?php
+                    }
+                    ?>
+                    </div>
+                    <div class="col-4">
+
+                        <button type="submit" name="submit" style="font-size: 14px;" class="btn btn-warning mb-0 mx-2 my-4">Update</button>
+                        <input type="hidden" name="id" value="<?php echo $order->id ?>">
+                    </div>
+                </div>
             </form>
             </div>
             <hr>
