@@ -1,7 +1,17 @@
 <?php
 include 'dbcon.php';
+session_start();
+if(isset($_SESSION['customer_name']) && isset($_SESSION['customer_id']))
+{
+  //echo $_SESSION['customer_name'];
+  //echo $_SESSION['customer_id'];
+}
+else{
+ echo "old";
+}
 
-$customer_id = $_GET['customerId'];
+
+$customer_id = $_SESSION['customer_id'];
 // fetching cart data
 $cartData = "Select * from temp_cart where c_id = '$customer_id'";
 $exec_cartData = mysqli_query($con, $cartData);
@@ -45,7 +55,7 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
 </head>
 
 <body style="background-color: #f0f2f7;">
-    <?php include 'header.php' ?>
+    <?php //include 'header.php' ?>
     <h3 class="text-primary mx-4 my-2"><a href="order.php"><i class="fas fa-backward"></i></a></h3>
     <div class="container">
         <h4>My Shopping Cart</h4>
@@ -81,7 +91,7 @@ while ($row = mysqli_fetch_array($exec_payment_mode)) {
                                 <td>₹<?php echo $items['product_price'] ?></td>
                                 <td>₹ <?php echo $items['product_price'] * $items['qty'] ?></td>
                                 <td class="text-center"><a class="text-danger" href="deleteCart.php?id=<?php echo $items['id'] ?>&customer_id=<?php echo $customer_id; ?>"><i class="fas fa-times" style="border: 1px solid red; margin-left:10px; padding:4px; border-radius:50%"></i></a></td>
-                                <input type="text" value="<?php echo $items['store'] ?>">
+                                <input type="hidden" value="<?php echo $items['store'] ?>">
                             </tr>
                         <?php
                         }

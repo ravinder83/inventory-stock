@@ -52,6 +52,7 @@ if(isset($_POST['id']))
   if(mysqli_num_rows($sqlquery) > 0){
     
       $output.= '<input class="form-control my-2" type="search" id="searchProduct" onblur="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
+     
       ';
       
     while ($row = mysqli_fetch_array($sqlquery)){
@@ -125,7 +126,8 @@ if(isset($_POST['product_id']) && isset($_POST['cust_id']) && isset($_POST['qty_
         $output .= '<div class="alert alert-success alert-dismissible fade show" role="alert">
                       <strong>Added to cart!</strong>
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
+                    </div>
+                    ';
           // getting cart count value
           $cart_count = "select count(id) as 'count' from temp_cart where c_id = '$cust_id'";
           $sql_cart_count = mysqli_query($con,$cart_count);
@@ -176,6 +178,7 @@ if(isset($_POST['searchProductData']))
   $output = "";
   if(mysqli_num_rows($sqlquery) > 0){
       $output.= '<input class="form-control my-2" type="search" id="searchProduct" onblur="search_prod('.$cust_id.')" name="search" placeholder="Search Product" aria-label="Search" autocomplete="off">
+     
       ';
     while ($row = mysqli_fetch_array($sqlquery)){
       $output .= '
@@ -192,8 +195,9 @@ if(isset($_POST['searchProductData']))
 
       <div class="col-5 d-flex justify-content-end">
         <input type="number" min="0" class="text-center qty" style="height:40px; width:50px;" id="qty'.$row['id'].'" name="qty" placeholder="Qty" value="1">
+        <input type="hidden" name="store" value="'.$row['store'].'"/>
         <button type="button" class="btn btn-primary" style="height:40px; width:50px; margin-left:20px;"
-        onclick="addToCart('.$row['id'].','.$cust_id.',qty'.$row['id'].')">Add</button>
+        onclick=\'addToCart('.$row['id'].','.$cust_id.',qty'.$row['id'].',"'.$row['store'].'")\'>Add</button>
       </div>
   </div>
   </div>

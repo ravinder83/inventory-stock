@@ -45,14 +45,6 @@ while ($row = mysqli_fetch_array($sqlquery2)){
 <input class="form-control" type="search" id="search" name="search" placeholder="Search Customer" aria-label="Search" autocomplete="off">
 </div>
 <?php 
-  // if(isset($_SESSION['customer_name']))
-  // {
-  //   $user = $_SESSION['customer_name'];
-  //   echo "Selected user $user ";
-  // }
-  // else{
-  //   echo '';
-  // }
 ?>
 
 <div class="search my-4 mx-2" id="search-data"></div>

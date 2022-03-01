@@ -38,7 +38,7 @@ else{
           if(isset($_SESSION['customer_id']))
           {
             ?>
-            <a href="cart.php?customerId=<?php echo $id ?>" style="text-decoration:none;color:black;"><i class="fas fa-cart-arrow-down mx-2 my-2" style="font-size:22px" id="cartVal">(<?php echo $cart_data['count'] ?>)</i></a>    
+            <a href="cart.php?customerId=<?php echo $id ?>" style="text-decoration:none;color:black;"><i class="fas fa-cart-arrow-down mx-2 my-2" style="font-size:22px" id="cartVal">(<?php echo $cart_data['count'] ?>)</i></a>   
             <?php
           }else{
             echo "";
